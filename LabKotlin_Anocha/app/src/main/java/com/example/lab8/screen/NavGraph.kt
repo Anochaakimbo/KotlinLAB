@@ -1,4 +1,4 @@
-package com.example.lab8
+package com.example.lab8.screen
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -20,6 +20,11 @@ fun NavGraph(navController: NavHostController) {
             route = Screen.Insert.route
         ) {
             InsertScreen(navController)
+        }
+        composable(
+            route = Screen.Edit.route
+        ) {
+            EditScreen(navController)
         }
     }
 }

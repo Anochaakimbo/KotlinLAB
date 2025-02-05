@@ -1,4 +1,4 @@
-package com.example.lab8
+package com.example.lab8.screen
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +25,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.lab8.data.Student
+import com.example.lab8.api.StudentAPI
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -117,7 +119,7 @@ fun InsertScreen(navController: NavHostController) {
                                         Toast.LENGTH_SHORT).show()
                                 }
                             }
-                            override fun onFailure(call: Call<Student>,t : Throwable){
+                            override fun onFailure(call: Call<Student>, t : Throwable){
                                 Toast.makeText(contextForToast,"Failed insert" + t.message,
                                     Toast.LENGTH_SHORT).show()
                             }

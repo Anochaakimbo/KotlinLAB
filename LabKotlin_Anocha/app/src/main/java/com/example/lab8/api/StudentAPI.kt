@@ -1,13 +1,17 @@
-package com.example.lab8
+package com.example.lab8.api
 
 
+import com.example.lab8.data.Student
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface StudentAPI {
     @GET("allStd")
@@ -22,6 +26,22 @@ interface StudentAPI {
         @Field("std_age") std_age: String
     )
     : Call<Student>
+
+
+    @FormUrlEncoded
+    @PUT("update/{no}")
+    fun updateStudent(
+        @Path("no")no:Int,
+        @Field("std_id") std_id: String,
+        @Field("std_name") std_name: String,
+        @Field("std_gender") std_gender: String,
+        @Field("std_age") std_age: String
+    )
+    : Call<Student>
+
+    @DELETE("delete/{no}") /// Delete
+    fun deleteStudent(
+        @Path("no") no: Int): Call<Student>
 
     companion object {
         fun create(): StudentAPI {
