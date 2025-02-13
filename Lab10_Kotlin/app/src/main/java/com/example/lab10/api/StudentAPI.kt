@@ -25,6 +25,9 @@ interface StudentAPI {
         @Path("std_id") std_id: String,
     ): Call<ProfileClass>
 
+    @GET("allAcc")
+    fun retrieveStudent(): Call<List<ProfileClass>>
+
     @FormUrlEncoded
     @POST("insertAccount")
     fun registerStudent(

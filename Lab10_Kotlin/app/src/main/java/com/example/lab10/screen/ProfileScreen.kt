@@ -112,7 +112,7 @@ fun ProfileScreen(navController: NavHostController) {
                     Button(
                         modifier = Modifier.fillMaxWidth()
                             .height(50.dp),
-                        onClick = {/* FORASS10 */}
+                        onClick = {navController.navigate(Screen.AllStudent.route)}
                     ) {
                         Text("Show all Student")
                     }

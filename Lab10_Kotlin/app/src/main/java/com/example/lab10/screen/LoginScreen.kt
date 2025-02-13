@@ -144,7 +144,7 @@ fun LoginScreen(navController: NavHostController) {
                             if (loginResponse.success == 1) {
                                 sharedPreferences.isLoggedIn = true
                                 sharedPreferences.userId = loginResponse.std_id
-
+                                sharedPreferences.userRole = loginResponse.role
                                 Toast.makeText(contextForToast, "Login successful", Toast.LENGTH_LONG).show()
                                 navController.navigate(Screen.Profile.route)
                             } else if (loginResponse.success == 0) {
