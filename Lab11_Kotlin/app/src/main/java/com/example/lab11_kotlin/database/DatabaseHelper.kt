@@ -74,6 +74,35 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DB_NAME,null, 
         return studentList
     }
 
+    @SuppressLint("Range")
+    fun getStudent(std_id: String): Student? {
+        var student = Student("","","",0)
+        val db = readableDatabase
+        var cursor: Cursor? = null
+        try{
+            cursor = db.rawQuery(
+                "SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID LIKE '%' || ? || '%'",
+                arrayOf(std_id)
+            )
+        }catch (e: SQLiteException){
+            onCreate(db)
+            return null
+        }
+        var id :String
+        var name :String
+        var gender :String
+        var age :Int
+        if(cursor!!.moveToFirst()){
+                id = cursor.getString(cursor.getColumnIndex(COLUMN_ID))
+                name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
+                gender = cursor.getString(cursor.getColumnIndex(COLUMN_GENDER))
+                age = cursor.getInt(cursor.getColumnIndex(COLUMN_AGE))
+                student = Student(id,name,gender,age)
+            }
+        db.close()
+        return student
+    }
+
     fun insertStudent(std:Student):Long{
         val db = writableDatabase
         val value = ContentValues()

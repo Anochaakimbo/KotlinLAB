@@ -46,6 +46,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavHostController
 import com.example.lab11_kotlin.database.DatabaseHelper
 import com.example.lab11_kotlin.database.Student
+import java.util.Objects.isNull
 
 
 @Composable
@@ -56,6 +57,8 @@ fun HomeScreen(navController: NavHostController) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val lifecycleState by lifecycleOwner.lifecycle.currentStateFlow.collectAsState()
     var itemClick = Student("","","",0)
+    val dbHandler = DatabaseHelper.getInstance(contextForToast)
+    dbHandler.writableDatabase
     LaunchedEffect(lifecycleState) {
         when (lifecycleState) {
             Lifecycle.State.DESTROYED -> {}
@@ -87,9 +90,16 @@ fun HomeScreen(navController: NavHostController) {
                 if(textFieldID.trim().isEmpty()){
                     showallData(studentItemsList,contextForToast)
                 }else{
+                    var studentSearch = dbHandler.getStudent(textFieldID.trim())
                     studentItemsList.clear()
+                    if(isNull(studentSearch) || (studentSearch!!.std_id=="")){
+                        Toast.makeText(contextForToast,"NOT FOUND",Toast.LENGTH_SHORT).show()
+                    }else{
+                        studentItemsList.add(studentSearch!!)
+                    }
                 }
-            }){
+            })
+            {
                 Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
             }
 
